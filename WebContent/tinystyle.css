@@ -1,0 +1,53 @@
+			body {
+				font-family: 'Roboto', sans-serif;
+				font-size: 30px;
+			}
+
+			.tinyButton{
+				font-family: 'Helveltica', sans-serif;
+				font-size: 15px;
+				 border: 0;
+				 padding:10;
+				 background: none;
+				 box-shadow:none;
+				 border-radius: 2px;
+				 background-color: rgb(232, 232, 232);
+				 color:rgb(66, 64, 64);
+			}
+
+			.tinyBox{
+				font-family: 'Helveltica', sans-serif;
+				 border: 0;
+				 padding:30;
+				 background: none;
+				 box-shadow:none;
+				 border-radius: 2px;
+				 background-color: rgb(245, 245, 245);
+				 color:rgb(66, 64, 64);
+			}
+
+			.tinyButton:hover{
+				 transition:all 0.1s ease;
+				font-size: 13px;
+				background-color:rgb(239, 239, 239);
+				color:rgb(66, 64, 64);
+			}
+
+			.tinyTextbox{
+				 font-family: 'Helveltica', sans-serif;
+				 font-size: 15px;
+				 border: 0;
+				 padding:10;
+				 background: none;
+				 box-shadow:none;
+				 border-radius: 2px;
+				 background-color: rgb(260, 260, 260);
+				 color:rgb(66, 64, 64);
+				 width:40%;
+			}
+
+			.tinyTextbox:focus {
+			    outline: 0;
+			    /* or */
+			    outline: none;
+			}
