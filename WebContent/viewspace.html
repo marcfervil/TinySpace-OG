@@ -1,6 +1,7 @@
 <html>	
 	<head>
 		<title>Look at this post</title>
+		<script type="text/javascript" src="socketio.js"></script>
 		<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,300i,400,500,700,900" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Droid+Sans" rel="stylesheet">
@@ -27,7 +28,7 @@
 					</div>
 				</div><br>
 				<input type="submit" class="tinyButton" value="Bad">
-				<input type="button" class="tinyButton" onClick="nextSpace()" value="Good">
+				<input type="button" class="tinyButton" onClick="sendSpace()" value="Good">
 			</form>
 			<div style="font-size: 10px;position: fixed;bottom: 10;width: 100%;">We have the <i>tiniest</i> space. How tiny is your space? Probably not this tiny.</div>
 		</center>
@@ -37,10 +38,22 @@
 
 <script type ="text/javascript">
 
-	i=0;
-	a=["we all love hands","what is an apple","who is us","we can only be us"];
 
-	function nextSpace(){
+	var socket = io();
+
+	
+
+	socket.on('post', function(msg){
+		
+		nextSpace(msg);
+	});
+
+	function sendSpace(){
+		socket.emit('getSpace',"general");
+	}
+
+	function nextSpace(data){
+
 		done=false;
 		margin=0;
 		vx=70;
@@ -49,8 +62,11 @@
  			margin+=vx;
  			//vx+=2;
  			if(margin>=1500){
- 				document.getElementById("text").innerHTML=a[i];
- 				i++;
+ 				
+
+ 				document.getElementById("text").innerHTML=data.content;
+ 				
+
  				margin=-1500;
 
  				done=true;

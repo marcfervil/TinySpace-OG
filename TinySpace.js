@@ -5,6 +5,8 @@ var path = require('path');
 var urlLib = require('url');
 var sha1 = require('sha1');
 
+//http://stackoverflow.com/questions/20803512/mongo-find-documents-that-do-not-contain-a-given-value-using-not
+
 var date = new Date();
 
 var output="";
@@ -133,12 +135,23 @@ MongoClient.connect(url, function(err, db) {
 	//console.log("connected to db!");
 	db.collection('spaces').remove();
 	db.collection('users').remove();
+
     db.collection('spaces').insertOne({
         username:"TestUser!",
         rating:55,
-        id:"2324t309fjg98j9v9r8e8hg4",
+        catagory:"general",
         type:"text",
+        title:"Content?",
         content:"Yes hello, this is content!"
+    });
+
+     db.collection('spaces').insertOne({
+        username:"TestUser!",
+        rating:22,
+        catagory:"general",
+        type:"text",
+        title:"Next Content",
+        content:"Wow! more content!"
     });
 
      db.collection('users').insertOne({
@@ -147,7 +160,6 @@ MongoClient.connect(url, function(err, db) {
         score:5348753,
         upVotes:[],
         downVotes:[],
-        id:"fj8wg7ehg873h"
     });
 
       db.collection('users').insertOne({
@@ -156,7 +168,6 @@ MongoClient.connect(url, function(err, db) {
         score:4546543,
         upVotes:[],
         downVotes:[],
-        id:"ewoifhfuewhfi"
     });
 });
 
@@ -168,6 +179,16 @@ function dbSearch(search,dbDocument,callback){
 	});
 }
 
+function dbSearchRand(search,dbDocument,callback){
+
+	MongoClient.connect(url, function(err, db) {
+		db.collection(dbDocument).aggregate({ $sample: { size: 1 } },function(err, doc) {
+			callback(doc,err);
+		});
+	});
+
+//	db.getCollection('users').aggregate({ $sample: { size: 1 } })
+}
 
 
 function TinyCompile(str){
@@ -223,12 +244,37 @@ var server = http.createServer(function(req, res) {
 
 });
  
- 
+
+
 var port = 8090;
 var ip= "localhost";
 server.listen(port,ip, function() {
     console.log('server listening on port ' + port);
 });
+
+var io = require('socket.io')(server);
+
+io.on('connection', function(socket){
+	console.log('a user connected');
+	socket.on('disconnect', function(){
+		console.log('user disconnected');
+	});
+	socket.on('getSpace', function(msg){
+		sendPost(socket,msg);
+	});
+});
+ 
+
+function sendPost(socket,catagory){
+
+
+
+
+	dbSearchRand({catagory:catagory},"spaces",function(data,e){
+		socket.emit("post",data[0]);
+	});
+
+}
 
 /*
 setInterval(function(){
@@ -237,6 +283,8 @@ setInterval(function(){
 
 }, 100);
 */
+
+/*
 var stdin = process.openStdin();
 
 stdin.addListener("data", function(d) {
@@ -250,7 +298,7 @@ stdin.addListener("data", function(d) {
    		console.log(cookies);
    }
   });
-
+*/
 /*
 var port = 80;
 var ip= "10.0.0.18";
