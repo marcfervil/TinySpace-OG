@@ -135,24 +135,17 @@ MongoClient.connect(url, function(err, db) {
 	//console.log("connected to db!");
 	db.collection('spaces').remove();
 	db.collection('users').remove();
-
-    db.collection('spaces').insertOne({
-        username:"TestUser!",
-        rating:55,
-        catagory:"general",
-        type:"text",
-        title:"Content?",
-        content:"Yes hello, this is content!"
+	console.log("Adding db content...");
+	for(var i=0;i<50000;i++){
+	    db.collection('spaces').insertOne({
+	        username:"TestUser!",
+	        rating:55,
+	        catagory:"general",
+	        type:"text",
+	        title:"Content?",
+	        content:"Yes hello, this is random content content! ("+Math.random()+")"
     });
-
-     db.collection('spaces').insertOne({
-        username:"TestUser!",
-        rating:22,
-        catagory:"general",
-        type:"text",
-        title:"Next Content",
-        content:"Wow! more content!"
-    });
+	}
 
      db.collection('users').insertOne({
         username:"marc",
@@ -169,6 +162,7 @@ MongoClient.connect(url, function(err, db) {
         upVotes:[],
         downVotes:[],
     });
+      console.log("done!");
 });
 
 function dbSearch(search,dbDocument,callback){
