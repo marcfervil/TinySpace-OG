@@ -1,27 +1,46 @@
+
+
+
 			body {
 				font-family: 'Roboto', sans-serif;
 				font-size: 30px;
-				background-color:rgb(249, 249, 249)
+				background-color:rgb(249, 249, 249);
+				padding:0;
+				margin: 0;
+			}
+			
+			ul{
+				list-style-type: none;
+				margin: 0;
+				padding: 0;	
+				font-size: 35;
+				color:black;
 			}
 
+			li{
+				margin:0;
+				padding:10;
+			}
+
+		
 			.tinyButton{
 				font-family: 'Helveltica', sans-serif;
 				font-size: 15px;
-				 border: 0;
-				 margin: 10;
-				 padding:10;
-				 background: none;
-				 box-shadow:none;
-				 border-radius: 2px;
-				 background-color: rgb(232, 232, 232);
-				 color:rgb(66, 64, 64);
-				 min-width: 5%;
+				border: 0;
+				margin: 10;
+				padding:10;
+				background: none;
+				box-shadow:none;
+				border-radius: 2px;
+				background-color: rgb(232, 232, 232);
+				color:rgb(66, 64, 64);
+				min-width: 5%;
 			}
 
 			.tinyPostbox{
 				font-family: 'Open Sans', sans-serif;
 				border: 0;
-				padding:0;
+				padding: 0;
 				margin: 0;
 				background: none;
 				box-shadow:none;
@@ -32,7 +51,7 @@
 				height:400px;
 				font-size: 20px;	
 				letter-spacing: 0px;
-				//box-shadow: 0 0 0 1pt rgb(168, 168, 168);
+				
 			}
 
 
@@ -49,11 +68,10 @@
 			}
 
 			.tinyButton:hover{
-				 transition:all 0.1s ease;
+				transition:all 0.1s ease;
 				font-size: 13px;
 				background-color:rgb(239, 239, 239);
 				color:rgb(66, 64, 64);
-
 			}
 
 			.tinyTextbox{
@@ -74,3 +92,13 @@
 			    /* or */
 			    outline: none;
 			}
+
+
+/*dont put anything under this or it will break*/
+
+			ul li:nth-child(odd){
+   				font-weight:bold;
+				background-color:rgb(0, 216, 90)
+			}​
+
+			

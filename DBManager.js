@@ -5,16 +5,17 @@ MongoClient.connect(url, function(err, db) {
 	//console.log("connected to db!");
 	db.collection('spaces').remove();
 	db.collection('users').remove();
-	console.log("Adding db content...");
-	for(var i=0;i<500;i++){
+    db.collection('spacelist').remove();
+//	console.log("Adding db content...");
+	for(var i=0;i<10;i++){
 	    db.collection('spaces').insertOne({
 	        username:"TestUser!",
 	        rating:55,
 	        catagory:"general",
 	        type:"text",
-	        title:"Content?",
-	        content:"Yes hello, this is random content content! ("+Math.random()+")"
-    });
+	        title:"Content: "+(Math.random()),
+	        content:"Yes hello, this is random content content! ("+i+")"
+        });
 	}
 
      db.collection('users').insertOne({
@@ -32,7 +33,35 @@ MongoClient.connect(url, function(err, db) {
         upVotes:[],
         downVotes:[],
     });
-      console.log("done!");
+
+    db.collection('spacelist').insert([
+        {
+            name:"general",
+            posts:0
+        },
+
+        {
+            name:"funny",
+            posts:0
+        },
+
+         {
+            name:"tech",
+            posts:0
+        },
+
+         {
+            name:"sports",
+            posts:0
+        },
+
+         {
+            name:"facts",
+            posts:0
+        },
+    
+    ]);
+    //console.log("done!");
 });
 
  dbSearch=function(search,dbDocument,callback){
@@ -42,6 +71,15 @@ MongoClient.connect(url, function(err, db) {
         });
     });
 }
+
+ dbSearchGroup=function(search,dbDocument,callback){
+    MongoClient.connect(url, function(err, db) {
+        db.collection(dbDocument).find(search).toArray(function(err, doc) {
+            callback(doc);
+        });
+    });
+}
+
 
  dbSearchRand=function(search,dbDocument,callback){
 

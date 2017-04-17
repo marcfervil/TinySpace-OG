@@ -17,10 +17,10 @@
 
 					<div id="post1" class="tinyPostbox">
 						<div style="background-color:rgb(0, 216, 90)">
-							<h1 style="padding:10px;margin: 0px;color:white;float:left;font-size:25">Demo TinySpace</h1>
+							<h1 id="postTitle" style="padding:10px;margin: 0px;color:white;float:left;font-size:25">Demo TinySpace</h1>
 							<hr style="margin:0;padding:0;width:100%; visibility: hidden;">
 						</div>
-						<div id="text" style="padding:10;width:100%;overflow:scroll;width:auto;height:120px;float:left">
+						<div id="postContent" style="padding:10;width:100%;overflow:scroll;width:auto;height:120px;float:left">
 							Hands are really just dogs in disguise
 						</div>
 						<br>
@@ -63,8 +63,8 @@
  			//vx+=2;
  			if(margin>=1500){
  				
-
- 				document.getElementById("text").innerHTML=data.content;
+ 				document.getElementById("postContent").innerHTML=data.content;
+ 				document.getElementById("postTitle").innerHTML=data.title;
  				
 
  				margin=-1500;

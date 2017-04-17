@@ -1,35 +1,32 @@
 cookies=[];
 
 
+port = 8090;
+ip= "localhost";
 
-websiteReturns={
+function getSessionVal(val){
+	id=cookies["tinySession"];
+	for(var i=0;i<sessionData.length;i++){
+		if(sessionData[i].id==id){
+			//console.log(sessionData[i]);
+			return sessionData[i][val];
+		}
+	}
+	return "could not find session value '"+val+"'";
+}
 
-/*
-	"/":function(params,res){
-		return getPage("/hello.html");
-	},
+function getPage(page){
+	return TinyCompile(readFile("WebContent"+page))
+}
 
-	"/login":function(params,res){
-		return getPage("/login.html");
-	},
+function log(val){
+	output+=val;
+	return "";
+}
 
-	"/message":function(params,res){
-		//this for testing
-		return params.m;
-	},
 
-	"/spaces":function(params,res){
-		return getPage("/spaces.html");
-	},
 
-	"/viewspace":function(params,res){
-		return getPage("/viewspace.html");
-	},
-
-	"/post":function(params,res){
-		return getPage("/post.html");
-	}*/
-};
+websiteReturns={};
 
 TinyCompile=function(str){
 	while(str.indexOf("<tiny>")!=-1){
@@ -70,11 +67,7 @@ server = http.createServer(function(req, res) {
 	currentParams=URLparams;
 	if(typeof websiteReturns[URL] === "function"){
 		response=websiteReturns[URL](URLparams,res);
-	}else if(typeof redirections[URL] === "function"){
-		redirections[URL](URLparams,res);
-		return;
 	}else{
-		//response=getPage(URL);
 		sendPage(URL,res);
 	}
 });

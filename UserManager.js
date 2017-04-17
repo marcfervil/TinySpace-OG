@@ -14,7 +14,7 @@ onGetPage("/loginValidate",function(params,res){
 	dbSearch({username:params.username},"users",function(e,err){	
 		if(e){
 			if(params.password===e.password){
-				sessionId=Math.random();
+				sessionId=sha1(Math.random());
 				res.writeHead(302, {
 					'Location': "/spaces",
 					'Set-Cookie': 'tinySession='+sessionId+'; expires='+new Date(new Date().getTime()+(40 * 60 * 1000)).toUTCString(),

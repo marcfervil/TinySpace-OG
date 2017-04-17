@@ -6,9 +6,19 @@
 	</head>
 	<body>
 		<center>
-			<tiny>
-				log(getSessionVal("username"));
-			</tiny>
+			<h1><span style="color:rgb(0, 216, 90)">Tiny</span>Space<span style="color:rgb(0, 216, 90)">.</span>co!</h1>
+			<div class="tinyBox">
+				<ul>
+					<tiny>
+						dbSearchGroup({},"spacelist",function(data){ 
+							for(var i=0;i<data.length;i++){
+								log("<li>"+data[i].name+"</li>");
+							}
+						});
+					</tiny>
+				</ul>
+			</div>
+
 			<div style="font-size: 10px;position: fixed;bottom: 10;width: 100%;">We have the <i>tiniest</i> space. How tiny is your space? Probably not this tiny.</div>
 		</center>
 			
