@@ -68,6 +68,13 @@ websiteReturns={
 		return getPage("/spaces.html");
 	},
 
+	"/viewspace":function(params){
+		return getPage("/viewspace.html");
+	},
+
+	"/post":function(params){
+		return getPage("/post.html");
+	}
 };
 
 function getSessionVal(val){
@@ -78,7 +85,7 @@ function getSessionVal(val){
 			return sessionData[i][val];
 		}
 	}
-	return "error";
+	return "could not find session value '"+val+"'";
 }
 
 
@@ -119,6 +126,9 @@ redirections={
 				});
 
 */
+
+
+
 MongoClient.connect(url, function(err, db) {
 	//console.log("connected to db!");
 	db.collection('spaces').remove();
@@ -187,7 +197,6 @@ function parseCookies (request) {
         var parts = cookie.split('=');
         list[parts.shift().trim()] = decodeURI(parts.join('='));
     });
-
     return list;
 }
 
@@ -221,12 +230,26 @@ server.listen(port,ip, function() {
     console.log('server listening on port ' + port);
 });
 
-
+/*
 setInterval(function(){
 
  	//console.log("test "+Math.random());
 
 }, 100);
+*/
+var stdin = process.openStdin();
+
+stdin.addListener("data", function(d) {
+    // note:  d is an object, and when converted to a string it will
+    // end with a linefeed.  so we (rather crudely) account for that  
+    // with toString() and then trim() 
+
+    str= d.toString().trim();
+
+   if(str=="sessions"){
+   		console.log(cookies);
+   }
+  });
 
 /*
 var port = 80;

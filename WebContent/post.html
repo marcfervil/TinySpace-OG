@@ -12,28 +12,27 @@
 					log('<div class="tinyBox" style="padding:10;background-color:red;color:black">Invalid username or password!</div>');
 				}
 			</tiny>
-			<h1>You should probably login...</h1>
+			<h1>Make some great content!</h1>
 			
 
 			<tiny> 
 
 				strings=[
-					"(To TinySpace if you weren't sure)",
-					"But we can't tell you what to do. <br> We aren't your father. <br> (we think)"
+					"(But make sure it's tiny)",
+					
 				];
 
 				i=getRandomNum(0,strings.length);
 
 			</tiny>
 
-			<form action="/loginValidate">
+			<form action="/post">
 				<div class="tinyBox">
 					<tiny>log(strings[i]);</tiny><br><br>
-					<input type="text" name="username" class="tinyTextbox" placeholder="Username" style="width:30%"><br><br>
-					<input type="password" name="password" class="tinyTextbox" placeholder="Password" style="width:30%"><br>	
+					<input type="text" name="title" class="tinyTextbox" placeholder="Post Title" ><br><br>
+					<textarea rows="5" cols="60" class="tinyTextbox" placeholder="All of your beautiful little ideas go here"></textarea>
 				</div><br>
-				<input type="submit" class="tinyButton" value="Login!">
-				<input type="button" class="tinyButton" value="Signup :)">
+				<input type="submit" class="tinyButton" value="Submit my masterpiece!">
 			</form>
 			<div style="font-size: 10px;position: fixed;bottom: 10;width: 100%;">We have the <i>tiniest</i> space. How tiny is your space? Probably not this tiny.</div>
 		</center>
