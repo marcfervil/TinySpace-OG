@@ -1,6 +1,6 @@
 <html>	
 	<head>
-		<title>Login!</title>
+		<title>Look at these spaces!</title>
 		<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,300i,400,500,700,900" rel="stylesheet">
 		<link href="tinystyle.css" rel="stylesheet">
 	</head>
@@ -13,7 +13,7 @@
 			<div class="tinyBox" style=" float:left;width: 100%;overflow: auto;white-space: nowrap;">
 				<div>
 					<tiny>
-						dbSearchGroup({},"spacelist",function(data){ 
+						data=param;
 							for(var i=0;i<data.length;i++){	
 								log(`
 									<div id="post1" onClick="javascript:location.href='viewspace?p=`+data[i].name+`'" class="tinyPostbox" style="margin:30px; height:30%;display:inline-block;word-wrap: break-word;white-space: normal;">
@@ -29,7 +29,9 @@
 									`);
 								
 							}
-						});
+					
+
+						
 					</tiny>
 				<div>
 			</div>

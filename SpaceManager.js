@@ -3,7 +3,9 @@ onGetPage("/viewspace",function(params,res){
 });
 
 onGetPage("/spaces",function(params,res){
-	sendPage("/spaces.html",res);
+	dbSearchGroup({},"spacelist",function(data){ 
+		sendPage("/spaces.html",res,data);
+	});
 });
 
 onGetPage("/signup",function(params,res){

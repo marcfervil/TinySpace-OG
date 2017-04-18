@@ -72,6 +72,7 @@ MongoClient.connect(url, function(err, db) {
 });
 
 
+
 dbAdd=function(doc,value){
     MongoClient.connect(url, function(err, db) {
         db.collection(doc).insertOne(value);
