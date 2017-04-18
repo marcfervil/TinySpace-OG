@@ -51,9 +51,15 @@
 				height:400px;
 				font-size: 20px;	
 				letter-spacing: 0px;
-				
+				-webkit-animation: fadein 2s;
 			}
 
+			.tinyPostbox:hover{
+				cursor: pointer;
+				box-shadow: 10px 10px 5px grey;
+				animation: fadein 2s;
+				-webkit-animation: fadein 2s;
+			}
 
 			.tinyBox{
 				font-family: 'Droid Sans', sans-serif;
