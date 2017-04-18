@@ -36,27 +36,32 @@ MongoClient.connect(url, function(err, db) {
 
     db.collection('spacelist').insert([
         {
-            name:"general",
-            posts:0
+            name:"General",
+            description:"Just some general content to brighten up your day!",
+            posts:0,
         },
 
         {
-            name:"funny",
+            name:"Funny",
+            description:"The funniest content you are probably ever going to see.",
             posts:0
         },
 
          {
-            name:"tech",
+            name:"Tech",
+            description:"You probably aren't even smart enough to read this.",
             posts:0
         },
 
          {
-            name:"sports",
+            name:"Sports",
+            description:"Haha. We know what these are.",
             posts:0
         },
 
          {
-            name:"facts",
+            name:"Facts",
+            description:"Wow, these facts are probably more interesting than you.",
             posts:0
         },
     

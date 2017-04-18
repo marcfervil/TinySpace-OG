@@ -36,7 +36,8 @@ TinyCompile=function(str){
 		try{
 			eval(compVal);
 		}catch(err){
-			output=err;
+			console.error(err);
+			output+=err;
 		}
 
 		display=output;
