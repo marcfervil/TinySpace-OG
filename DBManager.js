@@ -21,6 +21,7 @@ MongoClient.connect(url, function(err, db) {
      db.collection('users').insertOne({
         username:"marc",
         password:"nohash",
+        email:"a@a.com",
         score:5348753,
         upVotes:[],
         downVotes:[],
@@ -29,6 +30,7 @@ MongoClient.connect(url, function(err, db) {
       db.collection('users').insertOne({
         username:"test",
         password:"test",
+        email:"b@b.com",
         score:4546543,
         upVotes:[],
         downVotes:[],
@@ -68,6 +70,13 @@ MongoClient.connect(url, function(err, db) {
     ]);
     //console.log("done!");
 });
+
+
+dbAdd=function(doc,value){
+    MongoClient.connect(url, function(err, db) {
+        db.collection(doc).insertOne(value);
+    });
+}
 
  dbSearch=function(search,dbDocument,callback){
     MongoClient.connect(url, function(err, db) {

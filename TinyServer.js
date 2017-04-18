@@ -18,7 +18,6 @@ function getSessionVal(val){
 function getPage(page){
 	return TinyCompile(readFile("WebContent"+page))
 }
-
 function log(val){
 	output+=val;
 	return "";
@@ -53,6 +52,7 @@ onGetPage=function(url,callback){
 	websiteReturns[url]=callback;
 }
 
+
 sendPage=function(page,res){
 	res.writeHead(200, {"Content-Type": "text/html"});
 	res.write(TinyCompile(readFile("WebContent"+page)));
@@ -66,6 +66,7 @@ server = http.createServer(function(req, res) {
 	response="";
 	sendData=res;
 	currentParams=URLparams;
+	console.log("req.url = "+req.url)
 	if(typeof websiteReturns[URL] === "function"){
 		response=websiteReturns[URL](URLparams,res);
 	}else{
