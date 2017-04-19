@@ -27,7 +27,9 @@
 
 				<div id="contentBanner" class="tinyBox"  style="height:40%">
 					<div id="postData"> 
-						<tiny>log(strings[i]);</tiny><br><br>
+						<div id="message" style="padding:0;margin:0;border:0;display: inline-block;white-space:nowrap;"><tiny>log(strings[i]);</tiny></div>
+						<div id="error"></div>
+						<br>
 						<input type="catagory" id="catagory" name="catagory" class="tinyTextbox" placeholder="Post Catagory" ><br><br>
 						<input type="text" id="title" name="title" class="tinyTextbox" placeholder="Post Title" ><br><br>	
 						<textarea rows="5" id="text" cols="60" class="tinyTextbox" placeholder="All of your beautiful little ideas go here"></textarea>
@@ -45,9 +47,23 @@
 	</body>
 
 	<script type="text/javascript">
-		function post(){
 
-			//this is if it goes correctly...
+		
+
+		function post(){
+			
+			failure();
+		}
+
+		function failure(){
+			slideOut("message",function(){
+				document.getElementById("error").style.marginLeft="-1500";
+				document.getElementById("error").innerHTML="<span style='color:red'>Post could not be posted!</span>";
+				slideIn("error",function(){});
+			});
+		}
+
+		function success(){
 			slideOut("submitbutton",function(){
 				slideOut("postData",function(){
 					document.getElementById("contentBanner").style.height="5%";
@@ -58,7 +74,6 @@
 					slideIn("postSent",function(){});
 				});
 			});
-
 		}
 
 		function slideOut(id,callback){
