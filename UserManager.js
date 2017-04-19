@@ -20,7 +20,7 @@ onGetPage("/SignUpValidate",function(params,res){
             return;
 		}
 		//sucsess
-		dbAdd('user',{
+		dbAdd('users',{
 			username:params.username,
 			password:params.password,
 			email:params.email,
