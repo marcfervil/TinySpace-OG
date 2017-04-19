@@ -13,3 +13,7 @@ onGetPage("/signup",function(params,res){
 onGetPage("/post",function(params,res){
 	sendPage("/post.html",res);
 });
+
+onGetPage("/account",function(params,res){
+    sendPage("/account.html",res);
+});
