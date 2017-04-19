@@ -19,6 +19,7 @@
 
 				strings=[
 					"(But make sure it's tiny)",
+					"(Or don't, we can't yell you what to do)",
 				];
 
 				i=getRandomNum(0,strings.length);
@@ -30,7 +31,7 @@
 						<div id="message" style="padding:0;margin:0;border:0;display: inline-block;white-space:nowrap;"><tiny>log(strings[i]);</tiny></div>
 						<div id="error"></div>
 						<br>
-						<input type="catagory" id="catagory" name="catagory" class="tinyTextbox" placeholder="Post Catagory" ><br><br>
+						<input type="text" id="catagory" name="catagory" class="tinyTextbox" placeholder="Post Catagory" ><br><br>
 						<input type="text" id="title" name="title" class="tinyTextbox" placeholder="Post Title" ><br><br>	
 						<textarea rows="5" id="text" cols="60" class="tinyTextbox" placeholder="All of your beautiful little ideas go here"></textarea>
 					</div>
@@ -51,14 +52,25 @@
 		
 
 		function post(){
-			
-			failure();
+			catagory=document.getElementById("catagory");
+			title=document.getElementById("title");
+			text=document.getElementById("text");
+
+			if(catagory.value.length==0){
+				failure("Fill out the 'Catagory' field!")
+			}else if(title.value.length<=5){
+				failure("I didn't think a title could be too tiny...")
+			}else if(title.value.length<=10){
+				failure("That post is way too small bro.");
+			}else{
+				success();
+			}
 		}
 
-		function failure(){
+		function failure(msg){
 			slideOut("message",function(){
 				document.getElementById("error").style.marginLeft="-1500";
-				document.getElementById("error").innerHTML="<span style='color:red'>Post could not be posted!</span>";
+				document.getElementById("error").innerHTML="<span style='color:red'>"+msg+"</span>";
 				slideIn("error",function(){});
 			});
 		}
