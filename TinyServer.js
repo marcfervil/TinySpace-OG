@@ -63,7 +63,7 @@ TinyCompile=function(str){
 	return str;
 }
 
-TinyCompile=function(str,param){
+TinyCompile=function(str,...param){
 	display="";
 	while(str.indexOf("<tiny>")!=-1){
 		compVal=str.substring(str.indexOf("<tiny>")+6,str.indexOf("</tiny>"));

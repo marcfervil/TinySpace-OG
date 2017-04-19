@@ -1,5 +1,14 @@
-onGetPage("/viewspace",function(params,res){
-	sendPage("/viewspace.html",res);
+onGetPage("/vote",function(params,res){
+	dbSearch({name:params.p},"spacelist",function(data){ 
+		if(data){
+			sendPage("/vote.html",res,data);
+			return;
+		}
+		res.writeHead(302, {
+			'Location': "/error",
+		});
+		res.end();
+	});
 });
 
 onGetPage("/spaces",function(params,res){

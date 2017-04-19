@@ -25,16 +25,70 @@
 
 			</tiny>
 
-			<form action="/post">
-				<div class="tinyBox">
-					<tiny>log(strings[i]);</tiny><br><br>
-					<input type="text" name="title" class="tinyTextbox" placeholder="Post Title" ><br><br>
-					<textarea rows="5" cols="60" class="tinyTextbox" placeholder="All of your beautiful little ideas go here"></textarea>
-				</div><br>
-				<input type="submit" class="tinyButton" value="Submit my masterpiece!">
-			</form>
+				<div id="contentBanner" class="tinyBox"  style="height:40%">
+					<div id="postData"> 
+						<tiny>log(strings[i]);</tiny><br><br>
+						<input type="catagory" id="catagory" name="catagory" class="tinyTextbox" placeholder="Post Catagory" ><br><br>
+						<input type="text" id="title" name="title" class="tinyTextbox" placeholder="Post Title" ><br><br>	
+						<textarea rows="5" id="text" cols="60" class="tinyTextbox" placeholder="All of your beautiful little ideas go here"></textarea>
+					</div>
+					<div id="postSent"></div>
+				</div>
+				<br>
+				<div  id="submitbutton">
+				<input type="submit" class="tinyButton" onClick="post()" value="Submit my masterpiece!">
+				</div>
+
 			<div style="font-size: 10px;position: fixed;bottom: 10;width: 100%;">We have the <i>tiniest</i> space. How tiny is your space? Probably not this tiny.</div>
 		</center>
 			
 	</body>
+
+	<script type="text/javascript">
+		function post(){
+
+			//this is if it goes correctly...
+			slideOut("submitbutton",function(){
+				slideOut("postData",function(){
+					document.getElementById("contentBanner").style.height="5%";
+
+					document.getElementById("postSent").style.marginLeft="-1500";
+					document.getElementById("postSent").innerHTML="<span style='color:green'>Post Sent!</span>";
+					
+					slideIn("postSent",function(){});
+				});
+			});
+
+		}
+
+		function slideOut(id,callback){
+			margin=0;
+			iv=setInterval(function(){
+				document.getElementById(id).style.marginLeft=margin+"px";
+				margin+=50;
+				if(margin>=1500){					
+					var elem = document.getElementById(id);
+  					elem.parentNode.removeChild(elem);
+					clearInterval(iv);
+					callback();	
+				}
+			}, 1);
+		}
+
+
+		function slideIn(id,callback){
+			margin=-1500;
+			iv=setInterval(function(){
+				document.getElementById(id).style.marginLeft=margin+"px";
+				margin+=50;
+				if(margin>=0){					
+					document.getElementById(id).style.marginLeft="0px";
+					clearInterval(iv);
+					callback();	
+				}
+			}, 1);
+		}
+	</script>
+
 </html>
+

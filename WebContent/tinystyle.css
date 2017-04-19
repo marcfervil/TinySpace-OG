@@ -55,8 +55,9 @@
 			.tinyPostbox:hover{
 				cursor: pointer;
 				box-shadow: 10px 10px 5px grey;
-				animation: fadein 2s;
-				-webkit-animation: fadein 2s;
+				-webkit-transition: max-height 0.8s;
+				-moz-transition: max-height 0.8s;
+				transition: max-height 0.8s;
 			}
 
 			.tinyBox{
@@ -69,6 +70,13 @@
 				 background-color: rgb(232, 232, 232);
 				 color:rgb(66, 64, 64);
 				
+				 max-height: auto;
+
+				-moz-transition: height 0.5s ease-in-out;
+				-ms-transition: height 0.5s ease-in-out;
+				-o-transition: height 0.5s ease-in-out;
+				-wsebkit-transition: height 0.5s ease-in-out;
+				transition: height 0.5s;
 			}
 
 			.tinyButton:hover{
