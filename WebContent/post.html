@@ -16,7 +16,7 @@
 			
 
 			<tiny> 
-
+				log(getSessionVal("username"));
 				strings=[
 					"(But make sure it's tiny)",
 					"(Or don't, we can't yell you what to do)",
@@ -47,9 +47,11 @@
 			
 	</body>
 
+
+	<script type="text/javascript" src="socketio.js"></script>
 	<script type="text/javascript">
 
-		
+		var socket = io();
 
 		function post(){
 			catagory=document.getElementById("catagory");
@@ -60,12 +62,26 @@
 				failure("Fill out the 'Catagory' field!")
 			}else if(title.value.length<=5){
 				failure("I didn't think a title could be too tiny...")
-			}else if(title.value.length<=10){
+			}else if(text.value.length<=10){
 				failure("That post is way too small bro.");
 			}else{
-				success();
+				//success();
+				
+				socket.emit('sendSpace',{
+					catagory:catagory.value,
+					title:title.value,
+					text:text.value,
+				});
 			}
 		}
+//   /vote?p=hello    /vote
+		socket.on('postSent', function(msg){
+			success();
+		});
+
+		socket.on('postError', function(msg){
+			failure(msg.error);
+		});
 
 		function failure(msg){
 			slideOut("message",function(){
@@ -74,6 +90,8 @@
 				slideIn("error",function(){});
 			});
 		}
+
+		
 
 		function success(){
 			slideOut("submitbutton",function(){

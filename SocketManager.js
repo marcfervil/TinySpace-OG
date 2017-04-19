@@ -8,6 +8,24 @@ io.on('connection', function(socket){
 	socket.on('getSpace', function(msg){
 		sendPost(socket,msg);
 	});
+	socket.on('sendSpace', function(msg){
+		try{
+			MongoClient.connect(url, function(err, db) {
+				db.collection('spaces').insertOne({
+					username:getSessionVal("username"),
+					rating:0,
+					catagory:msg.catagory,
+					type:"text",
+					title:msg.title,
+					content:msg.text
+				});
+			});
+		}catch(err){
+			socket.emit("postError",{error:err});
+			return;
+		}
+		socket.emit("postSent","good!");
+	});
 });
  
 

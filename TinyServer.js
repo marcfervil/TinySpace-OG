@@ -7,7 +7,7 @@ ip= "localhost";
 var display="";
 blocked = false;
 
-function getSessionVal(val){
+ getSessionVal=function(val){
 	id=cookies["tinySession"];
 	for(var i=0;i<sessionData.length;i++){
 		if(sessionData[i].id==id){
