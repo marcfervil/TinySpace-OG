@@ -11,13 +11,22 @@ io.on('connection', function(socket){
 	socket.on('sendSpace', function(msg){
 		try{
 			MongoClient.connect(url, function(err, db) {
-				db.collection('spaces').insertOne({
-					username:getSessionVal("username"),
-					rating:0,
-					catagory:msg.catagory,
-					type:"text",
-					title:msg.title,
-					content:msg.text
+
+				dbSearch({name:msg.catagory},"spacelist",function(data){ 
+					if(data){	
+						db.collection('spaces').insertOne({
+							username:getSessionVal("username"),
+							rating:0,
+							catagory:msg.catagory,
+							type:"text",
+							title:msg.title,
+							content:msg.text
+						});
+						socket.emit("postSent","good!");
+					}else{
+						socket.emit("postError",{errorMessage:"'"+msg.catagory+"' is not a catagory!"});
+						return;
+					}
 				});
 			});
 		}catch(err){
@@ -25,7 +34,7 @@ io.on('connection', function(socket){
 			socket.emit("postError",{errorMessage:err.toString()});
 			return;
 		}
-		socket.emit("postSent","good!");
+		
 	});
 });
  

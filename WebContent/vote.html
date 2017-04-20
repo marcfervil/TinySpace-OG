@@ -41,6 +41,7 @@
 	</body>
 </html>
 
+<script type="text/javascript" src="animation.js"></script>
 <script type ="text/javascript">
 
 
@@ -48,7 +49,8 @@
 
 	socket.on('post', function(msg){
 		
-		nextSpace(msg);
+		//nextSpace(msg);
+		slideOutIn("post1",[["postContent",msg.content],["postTitle",msg.title]],function(){});
 	});
 
 	function sendSpace(){
@@ -57,6 +59,7 @@
 
 	function nextSpace(data){
 
+		
 		done=false;
 		margin=0;
 		vx=70;

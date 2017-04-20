@@ -28,3 +28,4 @@ onGetPage("/post",function(params,res){
 onGetPage("/account",function(params,res){
     sendPage("/account.html",res);
 });
+
