@@ -9,8 +9,9 @@
 			<br>
 			<tiny>
 				if(currentParams.invalid == "y"){
-					//log(currentParams);
 					log('<div class="tinyBox" style="padding:10;background-color:red;color:black">Invalid username or password!</div>');
+				}else if(currentParams.invalid == "a"){
+					log('<div class="tinyBox" style="padding:10;background-color:red;color:black">You have to logged in to view this page!</div>');
 				}
 			</tiny>
 			<h1>You should probably login...</h1>

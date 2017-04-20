@@ -13,8 +13,9 @@ port = 8090;
 ip= "localhost";
 
 nodeImport("Util.js");
-nodeImport("TinyServer.js");
 nodeImport("DBManager.js");
+nodeImport("TinyServer.js");
+
 nodeImport("UserManager.js");
 nodeImport("SpaceManager.js");
 nodeImport("SocketManager.js");

@@ -1,6 +1,6 @@
 
 			body {
-				font-family: 'Roboto', sans-serif;
+				font-family:  sans-serif;
 				font-size: 30px;
 				background-color:rgb(249, 249, 249);
 				padding:0;
@@ -36,7 +36,7 @@
 			}
 
 			.tinyPostbox{
-				font-family: 'Open Sans', sans-serif;
+				font-family:  sans-serif;
 				border: 0;
 				padding: 0;
 				margin: 0;
@@ -61,7 +61,7 @@
 			}
 
 			.tinyBox{
-				font-family: 'Droid Sans', sans-serif;
+				font-family: sans-serif;
 				 border: 0;
 				 padding:30;
 				 background: none;
@@ -105,12 +105,3 @@
 			    outline: none;
 			}
 
-
-/*dont put anything under this or it will break*/
-
-			ul li:nth-child(odd){
-   				font-weight:bold;
-				background-color:rgb(0, 216, 90)
-			}​
-
-			

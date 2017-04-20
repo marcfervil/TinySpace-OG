@@ -85,6 +85,22 @@ onGetPage=function(url,callback){
 	websiteReturns[url]=callback; 
 }
 
+sendPageWithValidation= function (page,res){
+
+	if(getSessionVal("username")==undefined){
+		res.writeHead(302, {
+			'Location': "/login?invalid=a"
+		});
+		res.end();
+	}else{
+		res.writeHead(200, {"Content-Type": "text/html"});
+		res.write(TinyCompile(readFile("WebContent"+page)));
+		res.end();
+	}
+
+
+}
+
 
 sendPage= function (page,res){
 	res.writeHead(200, {"Content-Type": "text/html"});
