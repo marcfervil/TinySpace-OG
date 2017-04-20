@@ -20,7 +20,7 @@ MongoClient.connect(url, function(err, db) {
 
      db.collection('users').insertOne({
         username:"marc",
-        password:"nohash",
+        password:sha1("nohash"),
         email:"a@a.com",
         score:5348753,
         upVotes:[],
@@ -29,7 +29,7 @@ MongoClient.connect(url, function(err, db) {
 
       db.collection('users').insertOne({
         username:"test",
-        password:"test",
+        password:sha1("test"),
         email:"b@b.com",
         score:4546543,
         upVotes:[],
@@ -38,31 +38,31 @@ MongoClient.connect(url, function(err, db) {
 
     db.collection('spacelist').insert([
         {
-            name:"General",
+            name:"general",
             description:"Just some general content to brighten up your day!",
             posts:0,
         },
 
         {
-            name:"Funny",
+            name:"funny",
             description:"The funniest content you are probably ever going to see.",
             posts:0
         },
 
          {
-            name:"Tech",
+            name:"tech",
             description:"You probably aren't even smart enough to read this.",
             posts:0
         },
 
          {
-            name:"Sports",
+            name:"sports",
             description:"Haha. We know what these are.",
             posts:0
         },
 
          {
-            name:"Facts",
+            name:"facts",
             description:"Wow, these facts are probably more interesting than you.",
             posts:0
         },
@@ -95,7 +95,20 @@ dbAdd=function(doc,value){
     });
 }
 
+//db.getCollection('spaces').aggregate([{$match : {catagory:"general"}},{ $sample: { size: 1 } }])
 
+
+ dbSearchRand=function(search,dbDocument,callback){
+
+    MongoClient.connect(url, function(err, db) {
+        db.collection(dbDocument).aggregate([{$match : search},{ $sample: { size: 1 } }],function(err, doc){
+             callback(doc,err);
+        });
+    });
+
+}
+
+/*
  dbSearchRand=function(search,dbDocument,callback){
 
     MongoClient.connect(url, function(err, db) {
@@ -104,5 +117,4 @@ dbAdd=function(doc,value){
         });
     });
 
-//  db.getCollection('users').aggregate({ $sample: { size: 1 } })
-}
+}*/

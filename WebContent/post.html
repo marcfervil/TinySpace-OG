@@ -7,16 +7,12 @@
 	<body>
 		<center>
 			<br>
-			<tiny>
-				if(currentParams.invalid == "y"){
-					log('<div class="tinyBox" style="padding:10;background-color:red;color:black">Invalid username or password!</div>');
-				}
-			</tiny>
+
 			<h1>Make some great content!</h1>
 			
 
 			<tiny> 
-				log(getSessionVal("username"));
+				//log(getSessionVal("username"));
 				strings=[
 					"(But make sure it's tiny)",
 					"(Or don't, we can't yell you what to do)",
@@ -60,9 +56,9 @@
 
 			if(catagory.value.length==0){
 				failure("Fill out the 'Catagory' field!")
-			}else if(title.value.length<=5){
+			}else if(title.value.length<=3){
 				failure("I didn't think a title could be too tiny...")
-			}else if(text.value.length<=10){
+			}else if(text.value.length<=5){
 				failure("That post is way too small bro.");
 			}else{
 				//success();
@@ -71,16 +67,17 @@
 					catagory:catagory.value,
 					title:title.value,
 					text:text.value,
-				});
+				}); 
 			}
 		}
-//   /vote?p=hello    /vote
+
 		socket.on('postSent', function(msg){
 			success();
 		});
 
 		socket.on('postError', function(msg){
-			failure(msg.error);
+			console.log(msg);
+			failure(msg.errorMessage);
 		});
 
 		function failure(msg){

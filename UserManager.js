@@ -22,7 +22,7 @@ onGetPage("/SignUpValidate",function(params,res){
 		//sucsess
 		dbAdd('users',{
 			username:params.username,
-			password:params.password,
+			password:sha1(params.password),
 			email:params.email,
             score:0,
             upVotes:[],
@@ -42,7 +42,7 @@ onGetPage("/SignUpValidate",function(params,res){
 onGetPage("/loginValidate",function(params,res){
 	dbSearch({username:params.username},"users",function(e,err){	
 		if(e){
-			if(params.password===e.password){
+			if(sha1(params.password)===e.password){
 				sessionId=sha1(Math.random());
 				res.writeHead(302, {
 					'Location': "/spaces",

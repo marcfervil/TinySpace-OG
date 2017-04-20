@@ -21,7 +21,8 @@ io.on('connection', function(socket){
 				});
 			});
 		}catch(err){
-			socket.emit("postError",{error:err});
+	
+			socket.emit("postError",{errorMessage:err.toString()});
 			return;
 		}
 		socket.emit("postSent","good!");

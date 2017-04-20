@@ -15,7 +15,8 @@ blocked = false;
 			return sessionData[i][val];
 		}
 	}
-	return "could not find session value '"+val+"'";
+	//return "could not find session value '"+val+"'";
+	return undefined;
 }
 
 function getPage(page){
