@@ -44,12 +44,15 @@ onGetPage("/loginValidate",function(params,res){
 		if(e){
 			if(sha1(params.password)===e.password){
 				sessionId=sha1(Math.random());
+
+				sessionData.push( {id:sessionId,username:params.username} );
+
 				res.writeHead(302, {
 					'Location': "/spaces",
 					'Set-Cookie': 'tinySession='+sessionId+'; expires='+new Date(new Date().getTime()+(40 * 60 * 1000)).toUTCString(),
 				});
 				res.end();
-				sessionData.push( {id:sessionId,username:params.username} );
+				
 				return;
 			}
 		}

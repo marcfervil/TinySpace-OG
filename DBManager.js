@@ -3,10 +3,12 @@ url = 'mongodb://localhost/tinyspace';
 
 MongoClient.connect(url, function(err, db) {
 	//console.log("connected to db!");
-	db.collection('spaces').remove();
+	//db.collection('spaces').remove();
 	db.collection('users').remove();
     db.collection('spacelist').remove();
 //	console.log("Adding db content...");
+
+/*
 	for(var i=0;i<10;i++){
 	    db.collection('spaces').insertOne({
 	        username:"TestUser!",
@@ -16,7 +18,7 @@ MongoClient.connect(url, function(err, db) {
 	        title:"Content: "+(Math.random()),
 	        content:"Yes hello, this is random content content! ("+i+")"
         });
-	}
+	}*/
 
      db.collection('users').insertOne({
         username:"marc",

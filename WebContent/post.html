@@ -28,14 +28,15 @@
 						<div id="error"></div>
 						<br>
 						<input type="text" id="catagory" name="catagory" class="tinyTextbox" placeholder="Post Catagory" ><br><br>
-						<input type="text" id="title" name="title" class="tinyTextbox" placeholder="Post Title" ><br><br>	
-						<textarea rows="5" id="text" cols="60" class="tinyTextbox" placeholder="All of your beautiful little ideas go here"></textarea>
+						<input type="text" id="title" name="title" class="tinyTextbox" placeholder="Post Title" ><br>	
+						<div id="content"> <br><textarea rows="5" id="text" cols="60" class="tinyTextbox" placeholder="All of your beautiful little ideas go here"></textarea></div>
 					</div>
 					<div id="postSent"></div>
 				</div>
 				<br>
 				<div  id="submitbutton">
-				<input type="submit" class="tinyButton" onClick="post()" value="Submit my masterpiece!">
+				<input type="submit" class="tinyButton" onClick="post()" value="Submit my masterpiece!"><br>
+				<input type="submit" class="tinyButton" onClick="attachImage()" value="Attach image">
 				</div>
 
 			<div style="font-size: 10px;position: fixed;bottom: 10;width: 100%;">We have the <i>tiniest</i> space. How tiny is your space? Probably not this tiny.</div>
@@ -48,7 +49,27 @@
 	<script type="text/javascript" src="socketio.js"></script>
 	<script type="text/javascript">
 
-		var socket = io();
+		socket = io();
+		isImage=false;
+		imgData=undefined;
+
+		function attachImage(){
+			isImage=true;
+			slideOutIn("content",[["content",'<hr><h3 style="padding:12;margin:0;color:rgb(0, 216, 90)">Attach Image</h3><input id="fileupload" name="fileupload" type="file"><hr>']],function(){
+				document.getElementById("fileupload").onchange = function(event) {
+					//alert("ddd");
+  					var file = document.getElementById("fileupload").files[0];
+					if (file) {
+    					reader = new FileReader();
+    					reader.readAsArrayBuffer(file);;
+						reader.onload = function (evt) {
+        					imgData=evt.target.result;
+   						}
+					}
+				}
+			});
+			document.getElementById("contentBanner").style.height="37%";
+		}
 
 		function post(){
 			catagory=document.getElementById("catagory");
@@ -59,11 +80,18 @@
 				failure("Fill out the 'Catagory' field!")
 			}else if(title.value.length<=3){
 				failure("I didn't think a title could be too tiny...")
-			}else if(text.value.length<=5){
+			}else if(text!=null && text.value.length<=5){
 				failure("That post is way too small bro.");
 			}else{
 				//success();
-				
+				if(isImage){
+					socket.emit('sendSpaceImg',{
+						catagory:catagory.value,
+						title:title.value,
+						photo:imgData,
+					}); 
+					return;
+				}
 				socket.emit('sendSpace',{
 					catagory:catagory.value,
 					title:title.value,

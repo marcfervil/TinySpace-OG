@@ -14,8 +14,11 @@ onGetPage("/vote",function(params,res){
 onGetPage("/spaces",function(params,res){
 	dbSearchGroup({},"spacelist",function(data){ 
 		sendPageWithValidation("/spaces.html",res,data);
+		//sendPage("/spaces.html",res,data);
 	});
 });
+
+
 
 onGetPage("/signup",function(params,res){
     sendPage("/SignUp.html",res);

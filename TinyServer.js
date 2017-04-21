@@ -97,18 +97,54 @@ sendPageWithValidation= function (page,res){
 		res.write(TinyCompile(readFile("WebContent"+page)));
 		res.end();
 	}
+}
 
+sendPageWithValidation= function (page,res,param){
 
+	if(getSessionVal("username")==undefined){
+		res.writeHead(302, {
+			'Location': "/login?invalid=a"
+		});
+		res.end();
+	}else{
+		res.writeHead(200, {"Content-Type": "text/html"});
+		res.write(TinyCompile(readFile("WebContent"+page),param));
+		res.end();
+	}
 }
 
 
 sendPage= function (page,res){
-	res.writeHead(200, {"Content-Type": "text/html"});
-	res.write(TinyCompile(readFile("WebContent"+page)));
-	res.end();
+	
+
+	/*
+	if(page.endsWith(".png")){
+		console.log("mhhmm");
+		res.writeHead(200, {'Content-Type': 'image/png' });
+    	res.end(readFile("WebContent"+page), 'binary');
+		return;
+	}
+*/
+	//res.writeHead(200, {"Content-Type": "text/html"});
+	//res.write(TinyCompile(readFile("WebContent"+page)));
+	//res.end();
 }
 
 sendPage= function (page,res,param){
+
+	if(page.endsWith(".png")){
+		try{ 
+			res.writeHead(200, {'Content-Type': 'image/png' });
+			f=fs.readFileSync("WebContent"+page);
+			res.end(f,"binary");
+		}catch(err){
+			res.writeHead(200, {"Content-Type": "text/html"});
+			res.write(TinyCompile(readFile("error"+page),param));
+			res.end();
+		}
+		return;
+	}
+
 	res.writeHead(200, {"Content-Type": "text/html"});
 	res.write(TinyCompile(readFile("WebContent"+page),param));
 	res.end();
@@ -131,14 +167,11 @@ server = http.createServer(function(req, res) {
 	
 
 	if(typeof websiteReturns[URL] === "function"){
-		response=websiteReturns[URL](URLparams,res);
+		websiteReturns[URL](URLparams,res);
 	}else{
+		//console.log("URL: "+URL);
 		sendPage(URL,res);
 	}
-
-//	display="";
-	//output="";
-
 });
  
 
