@@ -82,11 +82,15 @@ dbAdd=function(doc,value){
 }
 
  dbSearch=function(search,dbDocument,callback){
-    MongoClient.connect(url, function(err, db) {
-        db.collection(dbDocument).findOne(search,function(err, doc) {
-            callback(doc,err);
+    try{
+        MongoClient.connect(url, function(err, db) {
+            db.collection(dbDocument).findOne(search,function(err, doc) {
+                callback(doc,err);
+            });
         });
-    });
+    }catch(err){
+        callback(undefined,err);
+    }
 }
 
  dbSearchGroup=function(search,dbDocument,callback){

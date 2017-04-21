@@ -5,7 +5,7 @@ onGetPage("/vote",function(params,res){
 			return;
 		}
 		res.writeHead(302, {
-			'Location': "/error",
+			'Location': "/spaces",
 		});
 		res.end();
 	});

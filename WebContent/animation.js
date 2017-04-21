@@ -1,5 +1,9 @@
 
+isMoving=false;
+
 function slideOutIn(id,changes,callback){
+		if(!isMoving){
+			isMoving=true;
 			margin=0;
 			iv=setInterval(function(){
 				document.getElementById(id).style.marginLeft=margin+"px";
@@ -27,8 +31,10 @@ function slideOutIn(id,changes,callback){
 					if(margin>=0){					
 						document.getElementById(id).style.marginLeft="0px";
 						clearInterval(iv);
+						isMoving=false;
 						callback();	
 					}
 				}, 1);
 			}
 		}
+	}
