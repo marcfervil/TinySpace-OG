@@ -32,7 +32,7 @@
 						<!--input type="button" class="tinyButton" style="width:100%" value="Threads"-->
 					</div>
 				</div><br>
-				<input type="submit" class="tinyButton" value="Bad">
+				<input type="submit" class="tinyButton" onClick="test()" value="Bad">
 				<input type="button" class="tinyButton" onClick="sendSpace()" value="Good">
 			
 			<div style="font-size: 10px;position: fixed;bottom: 10;width: 100%;">We have the <i>tiniest</i> space. How tiny is your space? Probably not this tiny.</div>
@@ -48,13 +48,16 @@
 
 	var socket = io();
 
-	
+	function test(){
+		slideOutIn("bt",[["bt","helloooo"]],function(){
+			alert("done sliding!");
+		});
+	}
 
 	socket.on('post', function(msg){
 		if(msg.type=="text"){
 			slideOutIn("post1",[["postContent",msg.content],["postTitle",msg.title]],function(){});
 		}else if(msg.type=="image"){
-			//alert("fuck boi");
 			slideOutIn("post1",[["postContent","<img src='"+msg.content+"' class='tinyImage'>"],["postTitle",msg.title]],function(){});
 		}
 	});

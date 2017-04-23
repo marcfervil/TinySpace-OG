@@ -5,6 +5,7 @@ path = require('path');
 urlLib = require('url');
 sha1 = require('sha1');
 
+
 function nodeImport(file){
 	eval(fs.readFileSync(file).toString());
 }
@@ -20,6 +21,8 @@ nodeImport("UserManager.js");
 nodeImport("SpaceManager.js");
 nodeImport("SocketManager.js");
 
+
+//console.log(xssFilter("<br>"));
 
 var date = new Date();
 

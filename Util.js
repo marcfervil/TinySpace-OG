@@ -13,6 +13,13 @@ readFile=function (path){
 	}
 }
 
+xssFilter=function(str){
+    str=str.replace("<","&lt;");
+    str=str.replace(">","&gt;");
+    str=str.replace('"',"&#39;");
+    str=str.replace("'","&#34;");
+    return str;
+}
 
 
 parseCookies=function(request) {

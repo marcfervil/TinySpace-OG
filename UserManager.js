@@ -21,9 +21,9 @@ onGetPage("/SignUpValidate",function(params,res){
 		}
 		//sucsess
 		dbAdd('users',{
-			username:params.username,
+			username:xssFilter(params.username),
 			password:sha1(params.password),
-			email:params.email,
+			email:xssFilter(params.email),
             score:0,
             upVotes:[],
             downVotes:[],

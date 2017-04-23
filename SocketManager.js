@@ -17,14 +17,14 @@ io.on('connection', function(socket){
 						db.collection('spaces').insertOne({
 							username:getSessionVal("username"),
 							rating:0,
-							catagory:msg.catagory,
+							catagory:xssFilter(msg.catagory),
 							type:"text",
-							title:msg.title,
-							content:msg.text
+							title:xssFilter(msg.title),
+							content:xssFilter(msg.text)
 						});
 						socket.emit("postSent","good!");
 					}else{
-						socket.emit("postError",{errorMessage:"'"+msg.catagory+"' is not a catagory!"});
+						socket.emit("postError",{errorMessage:"'"+xssFilter(msg.catagory)+"' is not a catagory!"});
 						return;
 					}
 				});
@@ -59,9 +59,9 @@ io.on('connection', function(socket){
 							db.collection('spaces').insertOne({
 								username:getSessionVal("username"),
 								rating:0,
-								catagory:msg.catagory,
+								catagory:xssFilter(msg.catagory),
 								type:"image",
-								title:msg.title,
+								title:xssFilter(msg.title),
 								content:"images/"+imgName,
 							});
 						
@@ -70,7 +70,8 @@ io.on('connection', function(socket){
 						}); 
 
 					}else{
-						socket.emit("postError",{errorMessage:"'"+msg.catagory+"' is not a catagory!"});
+						console.log(xssFilter(msg.catagory));
+						socket.emit("postError",{errorMessage:"'"+xssFilter(msg.catagory)+"' is not a catagory!"});
 						return;
 					}
 				
