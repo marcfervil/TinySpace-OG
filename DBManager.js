@@ -89,6 +89,7 @@ dbAdd=function(doc,value){
             });
         });
     }catch(err){
+        console.error(err);
         callback(undefined,err);
     }
 }

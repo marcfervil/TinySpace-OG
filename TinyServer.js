@@ -19,6 +19,15 @@ blocked = false;
 	return undefined;
 }
 
+addSessionVal=function(val,key){
+	id=cookies["tinySession"];
+	for(var i=0;i<sessionData.length;i++){
+		if(sessionData[i].id==id){
+			sessionData[i][val]=key;
+		}
+	}
+}
+
 function getPage(page){
 	return TinyCompile(readFile("WebContent"+page))
 }
@@ -114,21 +123,7 @@ sendPageWithValidation= function (page,res,param){
 }
 
 
-sendPage= function (page,res){
-	
 
-	/*
-	if(page.endsWith(".png")){
-		console.log("mhhmm");
-		res.writeHead(200, {'Content-Type': 'image/png' });
-    	res.end(readFile("WebContent"+page), 'binary');
-		return;
-	}
-*/
-	//res.writeHead(200, {"Content-Type": "text/html"});
-	//res.write(TinyCompile(readFile("WebContent"+page)));
-	//res.end();
-}
 
 sendPage= function (page,res,param){
 
@@ -164,19 +159,40 @@ server = http.createServer(function(req, res) {
 	sendData=res;
 	currentParams=URLparams;
 	
-	
 
+	
 	if(typeof websiteReturns[URL] === "function"){
 		websiteReturns[URL](URLparams,res);
+		return;
 	}else{
-		//console.log("URL: "+URL);
-		sendPage(URL,res);
+		//sendPage(URL,res);
+	//	console.log("=================");
+		dbSearch({name:URL.substring(1,URL.length)},"spacelist",function(data,err){ 
+			if(data){
+				//manually set url param when swending thing works
+
+				//console.log("YUPPPP"); 
+				currentParams.p=URL.substring(1,URL.length);
+				sendPageWithValidation("/vote.html",res,data); 
+
+				
+				
+			}else{
+
+				//can't use URL variable here????
+				sendPage(urlLib.parse(req.url).pathname,res);
+				
+			}
+		});
 	}
+	
+
 });
  
 
 
-
 server.listen(port,ip, function() {
-    console.log('server listening on port ' + port);
+	console.log('server listening on port ' + port);
 });
+
+

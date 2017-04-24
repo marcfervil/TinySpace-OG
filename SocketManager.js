@@ -70,7 +70,7 @@ io.on('connection', function(socket){
 						}); 
 
 					}else{
-						console.log(xssFilter(msg.catagory));
+					//	console.log(xssFilter(msg.catagory));
 						socket.emit("postError",{errorMessage:"'"+xssFilter(msg.catagory)+"' is not a catagory!"});
 						return;
 					}
@@ -86,9 +86,28 @@ io.on('connection', function(socket){
 	
 });
  
-
-function sendPost(socket,catagory){
-	dbSearchRand({catagory:catagory},"spaces",function(data,e){
-		socket.emit("post",data[0]);
+function sendPost(socket,msg){
+	//console.log(msg);
+	dbSearchRand({catagory:msg.space},"spaces",function(data,e){
+		
+		if(getSessionVal("currentPost")!=undefined){
+			MongoClient.connect(url, function(err, db) {
+				if(msg.rate=="good"){	
+					db.collection("spaces").update(
+						{ _id: getSessionVal("currentPost") },
+						{ $inc: {rating: 150} }
+					);	
+					socket.emit("postRight",data[0]);
+				}else if(msg.rate=="bad"){	
+					db.collection("spaces").update(
+						{ _id: getSessionVal("currentPost") },
+						{ $inc: {rating: -150} }
+					);	
+					socket.emit("postLeft",data[0]);
+				}	
+  			});
+		}
+		addSessionVal("currentPost",data[0]._id);
+		
 	});
 }
