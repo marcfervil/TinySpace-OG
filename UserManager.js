@@ -9,6 +9,11 @@ onGetPage("/",function(params,res){
 	sendPage("/hello.html",res);
 });
 
+deleteCookie = function(); {
+    document.cookie = "tinySession";
+}
+
+
 
 onGetPage("/SignUpValidate",function(params,res){
 	dbSearch({username:params.username,email:params.email},"users",function(result,err){
