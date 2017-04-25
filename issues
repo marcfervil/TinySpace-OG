@@ -1,0 +1,11 @@
+ISSUES TO FIX BEFORE INITIAL RELEASE:
+-----------------------------------------
+
+"Stay logged in" button does nothing
+Debug needs to be set to true automatically if server cannot be bound to: 10.0.0.18:80
+fix XSS filter only filtering the first occourance of XSS
+Login verification emails go to spam by default in gmail
+Server crashes:
+    1). Accounts page
+    2). Scrolling through posts too quickly
+    3). Seemingly random
