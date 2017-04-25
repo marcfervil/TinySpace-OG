@@ -107,7 +107,13 @@ function sendPost(socket,msg){
 				}	
   			});
 		}
-		addSessionVal("currentPost",data[0]._id);
 		
+		if(msg.rate=="good"){	
+			socket.emit("postRight",data[0]);
+		}else if(msg.rate=="bad"){	
+			socket.emit("postLeft",data[0]);
+		}	
+		addSessionVal("currentPost",data[0]._id);
 	});
+	
 }

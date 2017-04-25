@@ -4,11 +4,13 @@ fs = require('fs');
 path = require('path');
 urlLib = require('url');
 sha1 = require('sha1');
-
+nodemailer = require('nodemailer');
 
 function nodeImport(file){
 	eval(fs.readFileSync(file).toString());
 }
+
+debug=true;
 
 port = 8090;
 ip= "localhost";

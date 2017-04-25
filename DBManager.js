@@ -1,83 +1,97 @@
 MongoClient = require('mongodb').MongoClient;
 url = 'mongodb://localhost/tinyspace';
 
-MongoClient.connect(url, function(err, db) {
-	//console.log("connected to db!");
-	//db.collection('spaces').remove();
-	db.collection('users').remove();
-    db.collection('spacelist').remove();
-//	console.log("Adding db content...");
-
-/*
-	for(var i=0;i<10;i++){
-	    db.collection('spaces').insertOne({
-	        username:"TestUser!",
-	        rating:55,
-	        catagory:"general",
-	        type:"text",
-	        title:"Content: "+(Math.random()),
-	        content:"Yes hello, this is random content content! ("+i+")"
-        });
-	}*/
-
-     db.collection('users').insertOne({
-        username:"marc",
-        password:sha1("nohash"),
-        email:"a@a.com",
-        score:5348753,
-        upVotes:[],
-        downVotes:[],
-    });
-
-      db.collection('users').insertOne({
-        username:"test",
-        password:sha1("test"),
-        email:"b@b.com",
-        score:4546543,
-        upVotes:[],
-        downVotes:[],
-    });
-
-    db.collection('spacelist').insert([
-        {
-            name:"general",
-            description:"Just some general content to brighten up your day!",
-            posts:0,
-        },
-
-        {
-            name:"funny",
-            description:"The funniest content you are probably ever going to see.",
-            posts:0
-        },
-
-         {
-            name:"tech",
-            description:"You probably aren't even smart enough to read this.",
-            posts:0
-        },
-
-         {
-            name:"sports",
-            description:"Haha. We know what these are.",
-            posts:0
-        },
-
-         {
-            name:"facts",
-            description:"Wow, these facts are probably more interesting than you.",
-            posts:0
-        },
-    
-    ]);
-    //console.log("done!");
-});
-
-
-
-dbAdd=function(doc,value){
+if(debug){
     MongoClient.connect(url, function(err, db) {
-        db.collection(doc).insertOne(value);
+        //console.log("connected to db!");
+        //db.collection('spaces').remove();
+        db.collection('users').remove();
+        db.collection('spacelist').remove();
+    //	console.log("Adding db content...");
+
+    /*
+        for(var i=0;i<10;i++){
+            db.collection('spaces').insertOne({
+                username:"TestUser!",
+                rating:55,
+                catagory:"general",
+                type:"text",
+                title:"Content: "+(Math.random()),
+                content:"Yes hello, this is random content content! ("+i+")"
+            });
+        }*/
+
+        db.collection('users').ensureIndex( { "username": 1 }, { unique: true } );
+        db.collection('users').ensureIndex( { "email": 1 }, { unique: true } );
+
+        db.collection('users').insertOne({
+            username:"marc",
+            password:sha1("nohash"),
+            email:"a@a.com",
+            score:5348753,
+            status:"active",
+            upVotes:[],
+            downVotes:[],
+        });
+
+        
+
+        db.collection('users').insertOne({
+            username:"test",
+            password:sha1("test"),
+            email:"b@b.com",
+            score:4546543,
+            status:"active",
+            upVotes:[],
+            downVotes:[],
+        });
+
+
+
+        db.collection('spacelist').insert([
+            {
+                name:"general",
+                description:"Just some general content to brighten up your day!",
+                posts:0,
+            },
+
+            {
+                name:"funny",
+                description:"The funniest content you are probably ever going to see.",
+                posts:0
+            },
+
+            {
+                name:"tech",
+                description:"You probably aren't even smart enough to read this.",
+                posts:0
+            },
+
+            {
+                name:"sports",
+                description:"Haha. We know what these are.",
+                posts:0
+            },
+
+            {
+                name:"facts",
+                description:"Wow, these facts are probably more interesting than you.",
+                posts:0
+            },
+        
+        ]);
+        //console.log("done!");
+    });
+}
+
+
+dbAdd=function(doc,value,cb){
+    MongoClient.connect(url, function(err, db) {
+        
+        db.collection(doc).insertOne(value,function(er,result){
+            cb(er,result);
+        });
+        
     });
 }
 

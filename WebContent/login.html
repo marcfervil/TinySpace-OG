@@ -12,6 +12,8 @@
 					log('<div class="tinyBox" style="padding:10;background-color:red;color:black">Invalid username or password!</div>');
 				}else if(currentParams.invalid == "a"){
 					log('<div class="tinyBox" style="padding:10;background-color:red;color:black">You have to logged in to view this page!</div>');
+				}else if(currentParams.invalid == "i"){
+					log('<div class="tinyBox" style="padding:10;background-color:red;color:black">You need to activate your account!</div>');
 				}
 			</tiny>
 			<h1>You should probably login...</h1>
@@ -32,10 +34,11 @@
 				<div class="tinyBox">
 					<tiny>log(strings[i]);</tiny><br><br>
 					<input type="text" name="username" class="tinyTextbox" placeholder="Username" style="width:30%"><br><br>
-					<input type="password" name="password" class="tinyTextbox" placeholder="Password" style="width:30%"><br>	
+					<input type="password" name="password" class="tinyTextbox" placeholder="Password" style="width:30%"><br>
+					<br><input type="checkbox" name="logged" value="true"><span style="font-size:15">Stay logged in</span>
 				</div><br>
+				
 				<input type="submit" class="tinyButton" value="Login!">
-				<input type="button" class="tinyButton" value="Signup :)">
 			</form>
 			<div style="font-size: 10px;position: fixed;bottom: 10;width: 100%;">We have the <i>tiniest</i> space. How tiny is your space? Probably not this tiny.</div>
 		</center>
