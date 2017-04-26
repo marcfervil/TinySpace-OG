@@ -7,6 +7,7 @@ if(debug){
         //db.collection('spaces').remove();
         db.collection('users').remove();
         db.collection('spacelist').remove();
+        db.collection('sessions').remove();
     //	console.log("Adding db content...");
 
     /*

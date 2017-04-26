@@ -8,13 +8,15 @@ blocked = false;
 
  getSessionVal=function(val){
 	id=cookies["tinySession"];
+	//console.log("ID: "+id);
 	for(var i=0;i<sessionData.length;i++){
+		//console.log(sessionData[i].id+"===="+id);
 		if(sessionData[i].id==id){
-			//console.log(sessionData[i]);
+			
 			return sessionData[i][val];
 		}
 	}
-	//return "could not find session value '"+val+"'";
+//	console.log("UNDEF");
 	return undefined;
 }
 
@@ -94,14 +96,35 @@ onGetPage=function(url,callback){
 }
 
 sendPageWithValidation= function (page,res,param){
-	
-	if(getSessionVal("username")==undefined){
+
+	//console.log(page+" PAGE COOKIE "+cookies["tinySession"]);
+
+	if(getSessionVal("username")!=undefined){
+		//console.log("PAGE: "+page+" SENT FROM JUST CHECKING SESSION");
+		sendPage(page,res,param);
+	}else if(getSessionVal("username")==undefined && cookies["stayLogged"]==undefined ){
 		res.writeHead(302, {
 			'Location': "/login?invalid=a"
 		});
 		res.end();
+	}else if(getSessionVal("username")==undefined && cookies["stayLogged"]!=undefined){
+		dbSearch({session:cookies["stayLogged"]},"users",function(rep){
+			if(rep){
+				sessionId=sha1(Math.random());
+				sessionData.push({id:sessionId,username:rep.username});
+				cookies["tinySession"]=sessionId;
+				sendPageWithHeader(page,res,{
+						//"Content-Type": "text/html",
+					'Set-Cookie': 'tinySession='+sessionId+'; expires='+new Date(new Date().getTime()+(40 * 60 * 1000)).toUTCString()
+				},param);
+				//redirectWithCookie(page,'tinySession='+sessionId+'; expires='+new Date(new Date().getTime()+(40 * 60 * 1000)).toUTCString(),res);
+			}else{
+				//return;
+				redirect("/login?invalid=a",res);
+			}
+		});
 	}else{
-		sendPage(page,res,param);
+		console.log("lol idk");
 	}
 }
 
@@ -112,6 +135,37 @@ redirect = function(page,res){
 	});
 	res.end();
 }
+
+redirectWithCookie = function(page,cookie,res){
+	res.writeHead(302, {
+		'Location': page,
+		'Set-Cookie': cookie
+	});
+	res.end();
+}
+
+sendPageWithHeader= function (page,res,headers,param){
+
+	if(page.endsWith(".png")){
+		try{ 
+			res.writeHead(200, {'Content-Type': 'image/png' });
+			f=fs.readFileSync("WebContent"+page);
+			res.end(f,"binary");
+		}catch(err){
+			res.writeHead(200, {"Content-Type": "text/html"});
+			res.write(TinyCompile(readFile("error"+page),param));
+			res.end();
+		}
+		return;
+	}
+
+	res.writeHead(200, headers);
+	var v=TinyCompile(readFile("WebContent"+page),param);
+	if(debug)v=v.replace("<center>",'<center>\n  <div class="tinyBox" style="padding:10;background-color:rgb(0, 216, 90);color:black;font-size:20">['+getSessionVal("username")+'] Debug Mode</div>');
+	res.write(v);
+	res.end();
+}
+
 
 sendPage= function (page,res,param){
 
@@ -130,7 +184,7 @@ sendPage= function (page,res,param){
 
 	res.writeHead(200, {"Content-Type": "text/html"});
 	var v=TinyCompile(readFile("WebContent"+page),param);
-	if(debug)v=v.replace("<center>",'<center>\n  <div class="tinyBox" style="padding:10;background-color:rgb(0, 216, 90);color:black;font-size:20">Debug Mode</div>');
+	if(debug)v=v.replace("<center>",'<center>\n  <div class="tinyBox" style="padding:10;background-color:rgb(0, 216, 90);color:black;font-size:20">['+getSessionVal("username")+'] Debug Mode</div>');
 	res.write(v);
 	res.end();
 }
