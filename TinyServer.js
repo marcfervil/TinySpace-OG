@@ -1,8 +1,7 @@
 cookies=[];
 
 
-port = 8090;
-ip= "localhost";
+
 
 var display="";
 blocked = false;
@@ -102,9 +101,7 @@ sendPageWithValidation= function (page,res,param){
 		});
 		res.end();
 	}else{
-		res.writeHead(200, {"Content-Type": "text/html"});
-		res.write(TinyCompile(readFile("WebContent"+page),param));
-		res.end();
+		sendPage(page,res,param);
 	}
 }
 
@@ -132,7 +129,9 @@ sendPage= function (page,res,param){
 	}
 
 	res.writeHead(200, {"Content-Type": "text/html"});
-	res.write(TinyCompile(readFile("WebContent"+page),param));
+	var v=TinyCompile(readFile("WebContent"+page),param);
+	if(debug)v=v.replace("<center>",'<center>\n  <div class="tinyBox" style="padding:10;background-color:rgb(0, 216, 90);color:black;font-size:20">Debug Mode</div>');
+	res.write(v);
 	res.end();
 }
 
@@ -181,9 +180,26 @@ server = http.createServer(function(req, res) {
 });
  
 
-
+/*
 server.listen(port,ip, function() {
 	console.log('server listening on port ' + port);
 });
+*/
 
 
+function startServer(ip1,port1){
+	server.listen(port1,ip1, function(error) {
+		//if(!error){
+			console.log('server attemping to listen on ' + ip1+":"+port1);
+		//}
+	});
+}
+
+server.on('error', function (e) {
+	console.log("Could not bind to "+ip+":"+port);
+	console.log("Debug mode initiated!");
+	debug=true;
+	startServer("localhost",8090);
+});
+
+startServer(ip,port);
