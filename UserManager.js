@@ -81,9 +81,9 @@ onGetPage("/SignUpValidate",function(params,res){
 				mailOptions = {
 					from: 'TinySpace! 😉 <tinyspace.co@gmail.com>', // sender address
 					to: params.email, // list of receivers
-					subject: 'Verify your account!', // Subject line
-					text: 'click here to verify my account-> ', // plain text body
-					html: 'click here to verify my account-> <a href="'+urls+'/validateAccount?c='+code+'">here</a>' // html body
+					subject: 'Activate your TinySpace account!', // Subject line
+					text: 'Click here to active your account ', // plain text body
+					html: 'Click here to active your account <br><br> <a href="'+urls+'/validateAccount?c='+code+'">here</a>' // html body
 				};
 
 				transporter.sendMail(mailOptions, (error, info) => {

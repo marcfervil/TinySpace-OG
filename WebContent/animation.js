@@ -1,8 +1,10 @@
 
 isMoving=false;
 
+s=90;
+
 function slideOutIn(id,changes,callback){
-		speed=50;
+		speed=s;
 		if(!isMoving){
 			isMoving=true;
 			margin=0;
@@ -44,7 +46,7 @@ function slideOutIn(id,changes,callback){
 
 
 function slideOutInLeft(id,changes,callback){
-		speed=-50;
+		speed=-s;
 		if(!isMoving){
 			isMoving=true;
 			margin=0;

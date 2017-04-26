@@ -13,11 +13,21 @@ readFile=function (path){
 	}
 }
 
+//&lt;img src=&#39;xss&#39; onerror=&#39;alert(1);&#39;&gt;
 xssFilter=function(str){
-    str=str.replace("<","&lt;");
-    str=str.replace(">","&gt;");
-    str=str.replace('"',"&#39;");
-    str=str.replace("'","&#34;");
+    fixes=[
+        ["<","&lt;"],
+        [">","&gt;"],
+        ['"',"&#39;"],
+        ["'","&#34;"]
+    ];
+
+    for(var i=0;i<fixes.length;i++){
+        while(str.indexOf(fixes[i][0])!=-1){
+            str=str.replace(fixes[i][0],fixes[i][1]);
+        }
+    }
+    
     return str;
 }
 
