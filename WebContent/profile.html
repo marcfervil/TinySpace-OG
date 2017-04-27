@@ -15,9 +15,19 @@
     </head>
     <body>
     <center>
-        <div id="boxContainer" class="tinyBox">
+        <tiny>
 
-            <div id="post1" class="tinyPostbox">
+
+            //log(param[0]);
+            for(var i=0;i<param[0].length;i++){
+                log(param[0][i].content);
+            }
+
+        </tiny>
+
+        <div id="boxContainer" class="tinyBoxV">
+
+            <div id="post1" class="tinyPostboxV" >
                 <div style="background-color:rgb(0, 216, 90)">
                     <h1 id="postTitle" style="padding:10px;margin: 0px;color:white;float:left;font-size:25">Demo TinySpace</h1>
                     <hr style="margin:0;padding:0;width:100%; visibility: hidden;">
@@ -29,8 +39,22 @@
                 <!--input type="button" class="tinyButton" style="width:100%" value="Threads"-->
             </div>
         </div><br>
-        <input type="submit" class="tinyButton" onClick="test()" value="Bad">
-        <input type="button" class="tinyButton" onClick="sendSpace()" value="Good">
+
+        <div id="boxContainer" class="tinyBoxV">
+
+            <div id="post1" class="tinyPostboxV" >
+                <div style="background-color:rgb(0, 216, 90)">
+                    <h1 id="postTitle" style="padding:10px;margin: 0px;color:white;float:left;font-size:25">Demo TinySpace</h1>
+                    <hr style="margin:0;padding:0;width:100%; visibility: hidden;">
+                </div>
+                <div id="postContent" style="padding:10;width:100%;width:auto;height:90%;float:left">
+                    Hands are really just dogs in disguise
+                </div>
+                <br>
+                <!--input type="button" class="tinyButton" style="width:100%" value="Threads"-->
+            </div>
+        </div><br>
+
 
         <div style="font-size: 10px;position: fixed;bottom: 10;width: 100%;">We have the <i>tiniest</i> space. How tiny is your space? Probably not this tiny.</div>
     </center>
@@ -41,28 +65,5 @@
     <script type="text/javascript" src="animation.js"></script>
     <script type ="text/javascript">
 
-
-
-        var socket = io();
-
-        function test(){
-            slideOutIn("bt",[["bt","helloooo"]],function(){
-                alert("done sliding!");
-            });
-        }
-
-        socket.on('post', function(msg){
-            if(msg.type=="text"){
-                slideOutIn("post1",[["postContent",msg.content],["postTitle",msg.title]],function(){});
-            }else if(msg.type=="image"){
-                slideOutIn("post1",[["postContent","<img src='"+msg.content+"' class='tinyImage'>"],["postTitle",msg.title]],function(){});
-            }
-        });
-
-        function sendSpace(){
-            socket.emit('getSpace',"<tiny>log(currentParams.p)</tiny>");
-        }
-
-        sendSpace();
 
     </script>

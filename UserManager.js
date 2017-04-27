@@ -13,11 +13,19 @@ deleteCookie = function() {
     document.cookie = "tinySession";
 }
 
+<<<<<<< Updated upstream
 login=function(user,res){
 	sessionId=sha1(Math.random());
 	sessionData.push( {id:sessionId,username:user} );
 
 	mins=40;
+=======
+onGetPage("/profile", function(params,res){
+    dbSearchGroup({username:"TestUser!"},"spaces",function(result,err) {
+        sendPage("/profile.html", res,result);
+    });
+});
+>>>>>>> Stashed changes
 
 	res.writeHead(302, {
 		'Location': "/spaces",

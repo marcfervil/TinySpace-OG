@@ -93,6 +93,51 @@
 				transition: height 0.5s;
 			}
 
+			.tinyBoxV{
+				font-family: sans-serif;
+				border: 0;
+				padding:30;
+				background: none;
+				box-shadow:none;
+				border-radius: 2px;
+				background-color: rgb(232, 232, 232);
+				color:rgb(66, 64, 64);
+
+				height: 90%;
+				width: 50%;
+
+				-moz-transition: height 0.5s ease-in-out;
+				-ms-transition: height 0.5s ease-in-out;
+				-o-transition: height 0.5s ease-in-out;
+				-wsebkit-transition: height 0.5s ease-in-out;
+				transition: height 0.5s;
+			}
+
+			.tinyPostboxV{
+				font-family:  sans-serif;
+				border: 0;
+				padding: 0;
+				margin: 0;
+				background: none;
+				box-shadow:none;
+				border-radius: 1px;
+				background-color: rgb(300, 300, 300);
+				color:black;
+				width:60%;
+				height:400px;
+				font-size: 20px;
+				letter-spacing: 0px;
+				-webkit-animation: fadein 2s;
+			}
+
+			.tinyPostbox:hover{
+				cursor: pointer;
+				box-shadow: 10px 10px 5px grey;
+				-webkit-transition: max-height 0.8s;
+				-moz-transition: max-height 0.8s;
+				transition: max-height 0.8s;
+			}
+
 			.tinyButton:hover{
 				transition:all 0.1s ease;
 				font-size: 13px;
