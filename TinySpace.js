@@ -19,7 +19,6 @@ port = 80;
 nodeImport("Util.js");
 nodeImport("DBManager.js");
 nodeImport("TinyServer.js");
-
 nodeImport("UserManager.js");
 nodeImport("SpaceManager.js");
 nodeImport("SocketManager.js");
