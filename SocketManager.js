@@ -4,13 +4,14 @@ io.on('connection', function(socket){
 	console.log('a user connected');
 	socket.on('disconnect', function(){
 		console.log('user disconnected');
+		//db.close();
 	});
 	socket.on('getSpace', function(msg){
 		sendPost(socket,msg);
 	});
 	socket.on('sendSpace', function(msg){
 		try{
-			MongoClient.connect(url, function(err, db) {
+			//MongoClient.connect(url, function(err, db) {
 
 				dbSearch({name:msg.catagory},"spacelist",function(data){ 
 					if(data){	
@@ -28,7 +29,7 @@ io.on('connection', function(socket){
 						return;
 					}
 				});
-			});
+			//});
 		}catch(err){
 	
 			socket.emit("postError",{errorMessage:err.toString()});
@@ -44,7 +45,7 @@ io.on('connection', function(socket){
 	socket.on('sendSpaceImg', function(msg){
 		imgName=sha1(Math.random()+Math.random()+"veryverytiny")+".png";
 		try{
-			MongoClient.connect(url, function(err, db) {
+			//MongoClient.connect(url, function(err, db) {
 				dbSearch({name:msg.catagory},"spacelist",function(data){ 
 					if(data){	
 						//console.log(data.photo);
@@ -76,7 +77,7 @@ io.on('connection', function(socket){
 					}
 				
 				});
-			});
+			//});
 		}catch(err){
 			console.error(err);
 			socket.emit("postError",{errorMessage:err.toString()});
@@ -91,7 +92,7 @@ function sendPost(socket,msg){
 	dbSearchRand({catagory:msg.space},"spaces",function(data,e){
 		
 		if(getSessionVal("currentPost")!=undefined){
-			MongoClient.connect(url, function(err, db) {
+			//MongoClient.connect(url, function(err, db) {
 				if(msg.rate=="good"){	
 					db.collection("spaces").update(
 						{ _id: getSessionVal("currentPost") },
@@ -105,7 +106,7 @@ function sendPost(socket,msg){
 					);	
 					socket.emit("postLeft",data[0]);
 				}	
-  			});
+  		//	});
 		}
 		
 		if(msg.rate=="good"){	

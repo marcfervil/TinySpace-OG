@@ -1,26 +1,30 @@
-MongoClient = require('mongodb').MongoClient;
-url = 'mongodb://localhost/tinyspace';
+//MongoClient = require('mongodb').MongoClient;
+//url = 'mongodb://localhost/tinyspace';
 
-if(debug){
+
+
+
+
+
+
+ db = mongoUtil.getDb();
+ //console.log("DB"+db);
+//console.log(db);
+//if(debug){
+
+    /*
     MongoClient.connect(url, function(err, db) {
+
+
+        
         //console.log("connected to db!");
         //db.collection('spaces').remove();
+        //dbc=db;
         db.collection('users').remove();
         db.collection('spacelist').remove();
         db.collection('sessions').remove();
     //	console.log("Adding db content...");
 
-    /*
-        for(var i=0;i<10;i++){
-            db.collection('spaces').insertOne({
-                username:"TestUser!",
-                rating:55,
-                catagory:"general",
-                type:"text",
-                title:"Content: "+(Math.random()),
-                content:"Yes hello, this is random content content! ("+i+")"
-            });
-        }*/
 
         db.collection('users').ensureIndex( { "username": 1 }, { unique: true } );
         db.collection('users').ensureIndex( { "email": 1 }, { unique: true } );
@@ -81,28 +85,33 @@ if(debug){
             },
         
         ]);
+        db.close();
         //console.log("done!");
+        
     });
-}
-
+    
+//}
+*/
 
 dbAdd=function(doc,value,cb){
-    MongoClient.connect(url, function(err, db) {
+   // MongoClient.connect(url, function(err, db) {
         
         db.collection(doc).insertOne(value,function(er,result){
             cb(er,result);
+           // db.close();
         });
         
-    });
+    //});
 }
 
  dbSearch=function(search,dbDocument,callback){
     try{
-        MongoClient.connect(url, function(err, db) {
+       // MongoClient.connect(url, function(err, db) {
             db.collection(dbDocument).findOne(search,function(err, doc) {
                 callback(doc,err);
+                //db.close();
             });
-        });
+        //});
     }catch(err){
         console.error(err);
         callback(undefined,err);
@@ -110,11 +119,12 @@ dbAdd=function(doc,value,cb){
 }
 
  dbSearchGroup=function(search,dbDocument,callback){
-    MongoClient.connect(url, function(err, db) {
+   // MongoClient.connect(url, function(err, db) {
         db.collection(dbDocument).find(search).toArray(function(err, doc) {
             callback(doc);
+           // db.close();
         });
-    });
+   // });
 }
 
 //db.getCollection('spaces').aggregate([{$match : {catagory:"general"}},{ $sample: { size: 1 } }])
@@ -122,11 +132,15 @@ dbAdd=function(doc,value,cb){
 
  dbSearchRand=function(search,dbDocument,callback){
 
-    MongoClient.connect(url, function(err, db) {
+   // MongoClient.connect(url, function(err, db) {
+      //  if(err){
+            //console.log("ERROR "+err);
+       // }
         db.collection(dbDocument).aggregate([{$match : search},{ $sample: { size: 1 } }],function(err, doc){
              callback(doc,err);
+            // db.close();
         });
-    });
+   // });
 
 }
 

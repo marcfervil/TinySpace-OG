@@ -39,14 +39,14 @@ onGetPage("/profile", function(params,res){
 onGetPage("/validateAccount",function(params,res){
 	dbSearch({status:params.c},"users",function(result,err){
 		if(result){
-			MongoClient.connect(url, function(err, db) {
+			//MongoClient.connect(url, function(err, db) {
 				db.collection('users').update(
  					{status:params.c},
  					{$set : {"status" : "active"}}
 				);
 
 				login(result.username,res);
-			});
+		//	});
 		}else{
 			redirect("error.html",res);
 		}
@@ -134,12 +134,12 @@ onGetPage("/loginValidate",function(params,res){
 				if(params.logged=="true"){
 					console.log("checked!");
 					var CookieCode=sha1(Math.random()+"TINYTINY");
-					MongoClient.connect(url, function(err, db) {
+					//MongoClient.connect(url, function(err, db) {
 						db.collection("users").update(
 							{username: params.username },
 							{$set: {session: CookieCode} }
 						);	
-					});
+				//	});
 					res.writeHead(302, {
 						'Location': "/spaces",
 						'Set-Cookie': 'tinySession='+sessionId+'; expires='+new Date(new Date().getTime()+(mins * 60 * 1000)).toUTCString(),

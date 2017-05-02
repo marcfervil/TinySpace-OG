@@ -1,5 +1,5 @@
 cookies=[];
-
+var mongoUtil = require('./DBConnection');
 
 
 
@@ -192,7 +192,7 @@ sendPage= function (page,res,param){
 server = http.createServer(function(req, res) {
 
 	//console.log("connection");
-
+	
 	output="";
 	display="";
 
@@ -242,10 +242,15 @@ server.listen(port,ip, function() {
 
 
 function startServer(ip1,port1){
+	
+	
+
 	server.listen(port1,ip1, function(error) {
 		//if(!error){
 			console.log('server attemping to listen on ' + ip1+":"+port1);
 		//}
+		
+
 	});
 }
 
