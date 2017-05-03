@@ -92,7 +92,7 @@ TinyCompile=function(str,...param){
 }
 
 onGetPage=function(url,callback){
-	websiteReturns[url]=callback; 
+	websiteReturns[url.toLowerCase()]=callback; 
 }
 
 sendPageWithValidation= function (page,res,param){
@@ -197,6 +197,7 @@ server = http.createServer(function(req, res) {
 	display="";
 
 	cookies=parseCookies(req);
+	req.url=req.url.toLowerCase();
     URL=urlLib.parse(req.url).pathname;
 	URLparams=urlLib.parse(req.url, true).query;
 	

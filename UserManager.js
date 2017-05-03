@@ -36,7 +36,7 @@ onGetPage("/profile", function(params,res){
 
 
 
-onGetPage("/validateAccount",function(params,res){
+onGetPage("/validateaccount",function(params,res){
 	dbSearch({status:params.c},"users",function(result,err){
 		if(result){
 			//MongoClient.connect(url, function(err, db) {
@@ -53,7 +53,7 @@ onGetPage("/validateAccount",function(params,res){
 	});
 });
 
-onGetPage("/SignUpValidate",function(params,res){
+onGetPage("/signupvalidate",function(params,res){
 //	dbSearch({username:params.username,email:params.email},"users",function(result,err){
 		code=sha1(Math.random());
 		//sucsess
@@ -117,7 +117,7 @@ onGetPage("/SignUpValidate",function(params,res){
 
 
 
-onGetPage("/loginValidate",function(params,res){
+onGetPage("/loginvalidate",function(params,res){
 	dbSearch({username:params.username},"users",function(e,err){	
 		if(e){
 			if(sha1(params.password)===e.password){

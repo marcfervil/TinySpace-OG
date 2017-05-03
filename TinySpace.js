@@ -7,6 +7,8 @@ sha1 = require('sha1');
 nodemailer = require('nodemailer');
 mongoUtil = require('./DBConnection');
 
+alpha=true;
+
 nodeImport= function (file){
 	eval(fs.readFileSync(file).toString());
 }

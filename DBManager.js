@@ -12,6 +12,15 @@
 //console.log(db);
 //if(debug){
 
+      db.collection('users').insertOne({
+            username:"marc",
+            password:sha1("nohash"),
+            email:"a@a.com",
+            score:5348753,
+            status:"active",
+            upVotes:[],
+            downVotes:[],
+        });
     /*
     MongoClient.connect(url, function(err, db) {
 
@@ -28,6 +37,9 @@
 
         db.collection('users').ensureIndex( { "username": 1 }, { unique: true } );
         db.collection('users').ensureIndex( { "email": 1 }, { unique: true } );
+
+        db.users.ensureIndex( { "username": 1 }, { unique: true } );
+        db.users.ensureIndex( { "email": 1 }, { unique: true } );
 
         db.collection('users').insertOne({
             username:"marc",
@@ -50,6 +62,41 @@
             upVotes:[],
             downVotes:[],
         });
+
+
+
+        db.spacelist.insert([
+            {
+                name:"general",
+                description:"Just some general content to brighten up your day!",
+                posts:0,
+            },
+
+            {
+                name:"funny",
+                description:"The funniest content you are probably ever going to see.",
+                posts:0
+            },
+
+            {
+                name:"tech",
+                description:"You probably aren't even smart enough to read this.",
+                posts:0
+            },
+
+            {
+                name:"sports",
+                description:"Haha. We know what these are.",
+                posts:0
+            },
+
+            {
+                name:"facts",
+                description:"Wow, these facts are probably more interesting than you.",
+                posts:0
+            },
+        
+        ]);
 
 
 

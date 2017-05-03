@@ -30,10 +30,28 @@ onGetPage("/spaces",function(params,res){
 	});
 });
 
-
+if(alpha){
+	onGetPage("/signup.html",function(params,res){
+		sendPage("/nocode.html",res);
+	});
+}
 
 onGetPage("/signup",function(params,res){
-    sendPage("/SignUp.html",res);
+	//console.log("alpha: "+alpha);
+	if(alpha){
+		dbSearch({code:params.c},"codes",function(data){ 
+			//console.log("data: "+if(data));
+			if(data){
+				//db.collection("codes").dropIndex({code : params.c });
+				db.collection("codes").deleteMany({code:params.c});
+				sendPage("/SignUp.html",res,data);	
+			}else{
+				sendPage("/nocode.html",res,data);
+			}
+		});
+	}else{
+    	sendPage("/SignUp.html",res);
+	}
 });
 
 onGetPage("/post",function(params,res){
