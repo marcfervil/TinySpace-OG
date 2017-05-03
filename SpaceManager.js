@@ -1,3 +1,4 @@
+mongo = require('mongodb')
 onGetPage("/vote",function(params,res){
 	dbSearch({name:params.p},"spacelist",function(data){ 
 		if(data){
@@ -10,9 +11,20 @@ onGetPage("/vote",function(params,res){
 		res.end();
 	});
 });
+//for db search groupthing your searching for, document, callback (delete this comment, it belongds in dbmanager
+onGetPage("/fetchPost", function(params,res){
+
+	pid=new mongo.ObjectId(params.id);
+	dbSearch({_id:pid},"spaces",function(data){
+		//if(data) {
+            sendPageWithValidation("/fetchPost.html", res, data);
+        //}
+	});
+});
+
 
 onGetPage("/spaces",function(params,res){
-	dbSearchGroup({},"spacelist",function(data){ 
+	dbSearchGroup({},"spacelist",function(data){
 		sendPageWithValidation("/spaces.html",res,data);
 		//sendPage("/spaces.html",res,data);
 	});

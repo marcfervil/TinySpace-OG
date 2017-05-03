@@ -161,7 +161,7 @@ sendPageWithHeader= function (page,res,headers,param){
 
 	res.writeHead(200, headers);
 	var v=TinyCompile(readFile("WebContent"+page),param);
-	if(debug)v=v.replace("<center>",'<center>\n  <div class="tinyBox" style="padding:10;background-color:rgb(0, 216, 90);color:black;position:fixed;font-size:20;width:100%">['+getSessionVal("username")+'] Debug Mode</div>');
+	//if(debug)v=v.replace("<center>",'<center>\n  <div class="tinyBox" style="padding:10;background-color:rgb(0, 216, 90);color:black;position:fixed;font-size:20;width:100%">['+getSessionVal("username")+'] Debug Mode</div>');
 	res.write(v);
 	res.end();
 }
@@ -184,7 +184,7 @@ sendPage= function (page,res,param){
 
 	res.writeHead(200, {"Content-Type": "text/html"});
 	var v=TinyCompile(readFile("WebContent"+page),param);
-	if(debug)v=v.replace("<center>",'<center>\n  <div class="tinyBox" style="padding:10;background-color:rgb(0, 216, 90);color:black;font-size:20">['+getSessionVal("username")+'] Debug Mode</div>');
+	//if(debug)v=v.replace("<center>",'<center>\n  <div class="tinyBox" style="padding:10;background-color:rgb(0, 216, 90);color:black;font-size:20">['+getSessionVal("username")+'] Debug Mode</div>');
 	res.write(v);
 	res.end();
 }
