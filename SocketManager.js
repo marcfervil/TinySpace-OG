@@ -91,30 +91,37 @@ function sendPost(socket,msg){
 	//console.log(msg);
 	dbSearchRand({catagory:msg.space},"spaces",function(data,e){
 		
-		if(getSessionVal("currentPost")!=undefined){
-			//MongoClient.connect(url, function(err, db) {
-				if(msg.rate=="good"){	
-					db.collection("spaces").update(
-						{ _id: getSessionVal("currentPost") },
-						{ $inc: {rating: 150} }
-					);	
-					socket.emit("postRight",data[0]);
-				}else if(msg.rate=="bad"){	
-					db.collection("spaces").update(
-						{ _id: getSessionVal("currentPost") },
-						{ $inc: {rating: -150} }
-					);	
-					socket.emit("postLeft",data[0]);
-				}	
-  		//	});
-		}
+		//console.log(data[0]);
 		
-		if(msg.rate=="good"){	
-			socket.emit("postRight",data[0]);
-		}else if(msg.rate=="bad"){	
-			socket.emit("postLeft",data[0]);
-		}	
-		addSessionVal("currentPost",data[0]._id);
+		if(data[0]!=undefined){
+			if(getSessionVal("currentPost")!=undefined){
+				//MongoClient.connect(url, function(err, db) {
+					if(msg.rate=="good"){	
+						db.collection("spaces").update(
+							{ _id: getSessionVal("currentPost") },
+							{ $inc: {rating: 150} }
+						);	
+						socket.emit("postRight",data[0]);
+					}else if(msg.rate=="bad"){	
+						db.collection("spaces").update(
+							{ _id: getSessionVal("currentPost") },
+							{ $inc: {rating: -150} }
+						);	
+						socket.emit("postLeft",data[0]);
+					}	
+			//	});
+			}
+			
+			if(msg.rate=="good"){	
+				socket.emit("postRight",data[0]);
+			}else if(msg.rate=="bad"){	
+				socket.emit("postLeft",data[0]);
+			}	
+			addSessionVal("currentPost",data[0]._id);
+		}else{
+			//console.log("NO DATA");
+			socket.emit("postRight",{content:"No more posts are available!",type:"text",title:"Sorry 😭",rating:"???"});
+		}
 	});
 	
 }

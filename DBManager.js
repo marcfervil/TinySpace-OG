@@ -12,6 +12,7 @@
 //console.log(db);
 //if(debug){
 
+/*
       db.collection('users').insertOne({
             username:"marc",
             password:sha1("nohash"),
@@ -20,10 +21,13 @@
             status:"active",
             upVotes:[],
             downVotes:[],
-        });
+        });*/
     /*
     MongoClient.connect(url, function(err, db) {
 
+        LIKE SEARCH
+        //db.users.find({name: /a/}) 
+        
 
         
         //console.log("connected to db!");
@@ -180,10 +184,9 @@ dbAdd=function(doc,value,cb){
  dbSearchRand=function(search,dbDocument,callback){
 
    // MongoClient.connect(url, function(err, db) {
-      //  if(err){
-            //console.log("ERROR "+err);
-       // }
+        
         db.collection(dbDocument).aggregate([{$match : search},{ $sample: { size: 1 } }],function(err, doc){
+            
              callback(doc,err);
             // db.close();
         });
